@@ -1,4 +1,5 @@
-from sys import argv
+import os
+import sys
 
 
 def make_ip_str(ip_str):
@@ -50,19 +51,17 @@ def check_params(ip_cidr):
 
 
 if __name__ == "__main__":
-	ip_cidr_input = argv[1:] # Allows us to take multiple values from the user
+	ip_cidr_input = sys.argv[1:] # Allows us to take multiple values from the user
 	if "/" in ip_cidr_input[0]:
 		ip = ip_cidr_input[0].split('/')[0]
 		cidr = int(ip_cidr_input[0].split('/')[1])
 		ip_cidr_input = ip + " " + str(cidr)
-	elif check_params(ip_cidr=ip_cidr_input) == False:
-		print("Correct format:\nx.x.x.x/17 (OR) x.x.x.x 17")
-		exit(f"Please pass only an IPv4 Address and your CIDR: python {__file__}")
-
 	else:
 		ip = ip_cidr_input[0]
 		cidr = int(ip_cidr_input[1])
 
+	if check_params(ip_cidr=ip_cidr_input) == False:
+		exit(f"Please pass only an IPv4 Address and your CIDR: python {__file__}")
 
 	print(f"The ip being subnetted is: {ip}/{cidr}\n")
 	
