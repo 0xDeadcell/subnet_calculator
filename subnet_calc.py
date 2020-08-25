@@ -31,11 +31,11 @@ def pretty_print(values):
 
 
 def check_params(ip_cidr):
-	if type(ip_cidr) == str and len(ip_cidr) != 2:
+	if isinstance(ip_cidr, str) and len(ip_cidr) != 2:
 		if len(ip_cidr.split()) != 2:
 			return False
 
-	elif type(ip_cidr) == list and len(ip_cidr) != 2:
+	elif isinstance(ip_cidr, list) and len(ip_cidr) != 2:
 		return False
 
 	
@@ -54,14 +54,14 @@ if __name__ == "__main__":
 	if "/" in ip_cidr_input[0]:
 		ip = ip_cidr_input[0].split('/')[0]
 		cidr = int(ip_cidr_input[0].split('/')[1])
-		ip_cidr_input = ip + " " + str(cidr)
-	elif check_params(ip_cidr=ip_cidr_input) == False:
-		print("Correct format:\nx.x.x.x/17 (OR) x.x.x.x 17")
-		exit(f"Please pass only an IPv4 Address and your CIDR: python {__file__}")
+		ip_cidr_input = [str(ip), str(cidr)]
+	
+	if check_params(ip_cidr=ip_cidr_input) == False:
+	        exit(f"Please pass a correct IPv4 Address and your CIDR:\npython {__file__} x.x.x.x/17 (OR) python {__file__} x.x.x.x 17")
 
 	else:
-		ip = ip_cidr_input[0]
-		cidr = int(ip_cidr_input[1])
+	        ip = ip_cidr_input[0]
+	        cidr = int(ip_cidr_input[1])
 
 
 	print(f"The ip being subnetted is: {ip}/{cidr}\n")
